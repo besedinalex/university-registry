@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: university-registry
+  labels:
+    app: university-registry
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: university-registry
+  template:
+    metadata:
+      labels:
+        app: university-registry
+    spec:
+      containers:
+        - name: university-registry
+          image: besedinalexey/university-registry:v1
+          ports:
+            - containerPort: 8080
+          env:
+            - name: POSTGRES_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-config
+                  key: postgres_host
+            - name: POSTGRES_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-config
+                  key: postgres_user
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-config
+                  key: postgres_password
+            - name: POSTGRES_DB
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-config
+                  key: postgres_db
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: university-registry
+  labels:
+    name: university-registry
+spec:
+  type: NodePort
+  ports:
+    - port: 8080
+      targetPort: 8080
+      nodePort: 30000
+  selector:
+    app: university-registry
