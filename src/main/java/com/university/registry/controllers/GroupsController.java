@@ -27,12 +27,12 @@ public class GroupsController {
     }
 
     @PostMapping("/new")
-    public ResponseEntity<Long> addNewGroup(@RequestParam String name, @RequestParam String specialization) {
-        var groupId = groupsService.addNewGroup(name, specialization);
-        return new ResponseEntity<>(groupId, HttpStatus.CREATED);
+    public ResponseEntity<Group> addNewGroup(@RequestParam String name, @RequestParam String specialization) {
+        var group = groupsService.addNewGroup(name, specialization);
+        return new ResponseEntity<>(group, HttpStatus.CREATED);
     }
 
-    @PutMapping("/update/{groupId}")
+    @PutMapping("/{groupId}")
     public ResponseEntity<Group> updateGroup(@PathVariable long groupId, @RequestParam String name,
                                              @RequestParam String specialization) {
         var group = groupsService.updateGroup(groupId, name, specialization);
@@ -40,8 +40,8 @@ public class GroupsController {
     }
 
     @DeleteMapping("{groupId}")
-    public ResponseEntity<Boolean> deleteGroup(@PathVariable long groupId) {
-        var success = groupsService.deleteGroup(groupId);
-        return new ResponseEntity<>(success, HttpStatus.OK);
+    public ResponseEntity<String> deleteGroup(@PathVariable long groupId) {
+        var message = groupsService.deleteGroup(groupId);
+        return new ResponseEntity<>(message, HttpStatus.OK);
     }
 }

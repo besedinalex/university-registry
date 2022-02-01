@@ -1,5 +1,6 @@
 package com.university.registry.services;
 
+import com.university.registry.exceptions.GroupAlreadyExistsException;
 import com.university.registry.models.Group;
 import com.university.registry.repositories.GroupsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,13 +22,12 @@ public class GroupsService {
         return groupsRepository.findAll();
     }
 
-    public long addNewGroup(String name, String specialization) {
+    public Group addNewGroup(String name, String specialization) {
         var existingGroup = groupsRepository.findByName(name);
         if (existingGroup.isPresent()) {
-            throw new IllegalArgumentException("Group with this name exists.");
+            throw new GroupAlreadyExistsException(name);
         }
-        var group = groupsRepository.save(new Group(name, specialization));
-        return group.getId();
+        return groupsRepository.save(new Group(name, specialization));
     }
 
     public Group updateGroup(long id, String name, String specialization) {
@@ -45,7 +45,7 @@ public class GroupsService {
         return group;
     }
 
-    public boolean deleteGroup(long id) {
+    public String deleteGroup(long id) {
         var group = groupsRepository.findById(id).orElse(null);
         if (group == null) {
             throw new IllegalArgumentException("Group with this id was not found.");
@@ -53,6 +53,6 @@ public class GroupsService {
 
         groupsRepository.delete(group);
 
-        return true;
+        return "Group was deleted";
     }
 }
