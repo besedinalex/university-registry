@@ -26,16 +26,14 @@ public class GroupsService {
     public Group addNewGroup(String name, String specialization) {
         var existingGroup = groupsRepository.findByName(name);
         if (existingGroup.isPresent()) {
-            throw new GroupAlreadyExistsException(name);
+            throw new GroupAlreadyExistsException(name, existingGroup);
         }
         return groupsRepository.save(new Group(name, specialization));
     }
 
     public Group updateGroup(long id, String name, String specialization) {
-        var group = groupsRepository.findById(id).orElse(null);
-        if (group == null) {
-            throw new GroupNotFoundException(id);
-        }
+        var group = groupsRepository.findById(id)
+                .orElseThrow(() -> new GroupNotFoundException(id, this.getAllGroups()));
         if (!name.equals("")) {
             group.setName(name);
         }
@@ -47,14 +45,9 @@ public class GroupsService {
     }
 
     public String deleteGroup(long id) {
-        var group = groupsRepository.findById(id).orElse(null);
-        if (group == null) {
-            throw new GroupNotFoundException(id);
-        }
-
+        var group = groupsRepository.findById(id)
+                .orElseThrow(() -> new GroupNotFoundException(id));
         groupsRepository.delete(group);
-
-        return "Group was deleted";
+        return "Group " + id + " was deleted";
     }
 }
-
