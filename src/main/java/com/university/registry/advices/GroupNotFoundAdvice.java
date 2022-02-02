@@ -5,12 +5,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 @ControllerAdvice
 public class GroupNotFoundAdvice {
 
-    @ResponseBody
     @ExceptionHandler(GroupNotFoundException.class)
     ResponseEntity<ExceptionAdvice> groupNotFoundHandler(GroupNotFoundException ex) {
         var res = new ExceptionAdvice(ex.getMessage(), 1, ex.getData());
