@@ -1,0 +1,106 @@
+{
+	"info": {
+		"_postman_id": "655dc7a9-989d-4f79-a1dd-d824fbd4a7cc",
+		"name": "University Registry",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Groups",
+			"item": [
+				{
+					"name": "Get all groups",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/student-groups/all",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"student-groups",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add new group",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/student-groups/new?name=171-333&specialization=CAD",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"student-groups",
+								"new"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "171-333"
+								},
+								{
+									"key": "specialization",
+									"value": "CAD"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update group",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/student-groups/1?name=171-332&specialization=Web",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"student-groups",
+								"1"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "171-332"
+								},
+								{
+									"key": "specialization",
+									"value": "Web"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete group",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/student-groups/1",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"student-groups",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
