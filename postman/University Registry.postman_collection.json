@@ -101,6 +101,74 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Students",
+			"item": [
+				{
+					"name": "Get all students",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/students/all",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"students",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get students by group",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/students/1",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"students",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add student",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"Alexey\",\n    \"lastName\": \"Besedin\",\n    \"groupId\": 1,\n    \"admissionDate\": \"2017-08-31\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/students/new",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"students",
+								"new"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }
